@@ -1,0 +1,26 @@
+# Binaries
+/netwatch
+/netwatch.exe
+/netwatch-*
+
+# Env
+.env
+
+# Coverage
+coverage.out
+coverage.html
+*.cov
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+tmp/
+*.tmp
