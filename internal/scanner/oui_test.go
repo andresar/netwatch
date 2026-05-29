@@ -73,3 +73,30 @@ func TestLookupOUI_RaspberryPi(t *testing.T) {
 		t.Errorf("LookupOUI() = %q, want %q", vendor, "Raspberry Pi Foundation")
 	}
 }
+
+func TestIsLocalMAC_Randomized(t *testing.T) {
+	// Locally administered (iOS private MAC): 0xCA & 0x02 = 0x02
+	if !IsLocalMAC("ca:7a:77:f9:56:05") {
+		t.Error("IsLocalMAC() = false, want true for ca:xx:xx (locally administered)")
+	}
+}
+
+func TestIsLocalMAC_Universal(t *testing.T) {
+	// Universally administered (real OUI): 0x2C & 0x02 = 0x00
+	if IsLocalMAC("2c:96:82:75:69:e8") {
+		t.Error("IsLocalMAC() = true, want false for 2c:xx:xx (universal)")
+	}
+}
+
+func TestIsLocalMAC_Empty(t *testing.T) {
+	if IsLocalMAC("") {
+		t.Error("IsLocalMAC() = true, want false for empty MAC")
+	}
+}
+
+func TestIsLocalMAC_CiscoOUI(t *testing.T) {
+	// Cisco OUI: 0xE8 & 0x02 = 0x00
+	if IsLocalMAC("E8:0A:B9:33:44:55") {
+		t.Error("IsLocalMAC() = true, want false for Cisco OUI")
+	}
+}

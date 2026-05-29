@@ -98,7 +98,7 @@ Once dispositivos. Once. Con nombres de fabricante reales: la impresora Epson, e
 
 Hablando de fabricantes: al principio tenía una base de datos OUI con exactamente 10 entradas de ejemplo. Cisco, Apple, Intel, Synology. Suficiente para pasar los tests, inútil para la vida real.
 
-Reemplacé ese archivo de juguete con la base de datos oficial de la IEEE: 39.481 entradas que cubren prácticamente cualquier fabricante de dispositivos de red del planeta. Todo embejido dentro del binario con `go:embed`, sin depender de servicios externos ni descargas en tiempo de ejecución.
+Reemplacé ese archivo de juguete con la base de datos oficial de la IEEE: 39.481 entradas que cubren prácticamente cualquier fabricante de dispositivos de red del planeta. Todo incrustado dentro del binario con `go:embed`, sin depender de servicios externos ni descargas en tiempo de ejecución.
 
 Pasar de 10 a 39.481 entradas fue tan simple como:
 

@@ -24,9 +24,9 @@ type ScanConfig struct {
 // DefaultScanConfig returns a ScanConfig with sensible defaults.
 func DefaultScanConfig() ScanConfig {
 	return ScanConfig{
-		PingConcurrency: 32,
+		PingConcurrency: 64,
 		ScanTimeout:     30 * time.Second,
-		DNSTimeout:      3 * time.Second,
+		DNSTimeout: 1 * time.Second,
 	}
 }
 
@@ -48,4 +48,9 @@ type DNSResolver interface {
 // OUILookup resolves vendor information from MAC addresses.
 type OUILookup interface {
 	Lookup(mac string) string
+}
+
+// MDNSResolver performs mDNS reverse lookups to discover .local hostnames.
+type MDNSResolver interface {
+	ResolveMDNS(ctx context.Context, ips []string, timeout time.Duration) (map[string]string, error)
 }

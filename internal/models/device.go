@@ -11,6 +11,7 @@ type Device struct {
 	MAC      string `json:"mac"`
 	Hostname string `json:"hostname,omitempty"`
 	Vendor   string `json:"vendor,omitempty"`
+	LocalMAC bool   `json:"local_mac,omitempty"`
 }
 
 // ScanResult holds the output of a network scan.

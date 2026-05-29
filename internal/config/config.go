@@ -38,7 +38,7 @@ func Load() (*Config, error) {
 		port = v
 	}
 
-	concurrency := 32
+	concurrency := 64
 	if c := os.Getenv("NETWATCH_PING_CONCURRENCY"); c != "" {
 		v, err := strconv.Atoi(c)
 		if err != nil {
@@ -56,7 +56,7 @@ func Load() (*Config, error) {
 		scanTimeout = v
 	}
 
-	dnsTimeout := 3 * time.Second
+	dnsTimeout := 1 * time.Second
 	if t := os.Getenv("NETWATCH_DNS_TIMEOUT"); t != "" {
 		v, err := time.ParseDuration(t)
 		if err != nil {

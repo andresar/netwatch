@@ -15,7 +15,7 @@ import (
 const defaultPingCount = 1
 
 // pingTimeout is the timeout per individual ping probe.
-const pingTimeout = 2 * time.Second
+const pingTimeout = 500 * time.Millisecond
 
 // privilegedPing controls whether ICMP uses raw sockets (privileged) or
 // unprivileged UDP-mode ICMP. Auto-detected at startup.

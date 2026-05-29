@@ -40,7 +40,7 @@ func TestDevice_JSONRoundTrip(t *testing.T) {
 }
 
 func TestDevice_JSONWithOmitEmpty(t *testing.T) {
-	// DI-3: Optional fields (Hostname, Vendor) omitted when empty
+	// DI-3: Optional fields (Hostname, Vendor, LocalMAC) omitted when empty
 	d := Device{
 		IP:  "192.168.1.1",
 		MAC: "00:11:22:aa:bb:cc",
@@ -62,11 +62,40 @@ func TestDevice_JSONWithOmitEmpty(t *testing.T) {
 	if _, ok := result["vendor"]; ok {
 		t.Error("vendor should be omitted when empty")
 	}
+	if _, ok := result["local_mac"]; ok {
+		t.Error("local_mac should be omitted when false")
+	}
 	if _, ok := result["ip"]; !ok {
 		t.Error("ip should always be present")
 	}
 	if _, ok := result["mac"]; !ok {
 		t.Error("mac should always be present")
+	}
+}
+
+func TestDevice_LocalMACPresent(t *testing.T) {
+	// local_mac should appear in JSON when true
+	d := Device{
+		IP:       "192.168.1.10",
+		MAC:      "ca:7a:77:f9:56:05",
+		LocalMAC: true,
+	}
+
+	data, err := json.Marshal(d)
+	if err != nil {
+		t.Fatalf("json.Marshal error: %v", err)
+	}
+
+	var result map[string]interface{}
+	if err := json.Unmarshal(data, &result); err != nil {
+		t.Fatalf("json.Unmarshal error: %v", err)
+	}
+
+	if _, ok := result["local_mac"]; !ok {
+		t.Error("local_mac should be present when true")
+	}
+	if result["local_mac"] != true {
+		t.Errorf("local_mac = %v, want true", result["local_mac"])
 	}
 }
 

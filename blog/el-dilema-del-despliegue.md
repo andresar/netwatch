@@ -1,10 +1,8 @@
-# El dilema del despliegue
-
 ## El problema de los runners
 
 Cuando empecé con proyectos auto-alojados en el NAS, el camino más obvio era instalar un runner de GitHub Actions por cada repositorio. Un systemd service por proyecto, cada uno consumiendo unos 40MB de RAM en idle, todos preguntando "¿hay algo para hacer?" aunque nadie haya tocado el código en semanas.
 
-Al principio no molesta. Pero cuando tenés tres, cuatro, cinco proyectos, empezás a preguntarte si tiene sentido tener cinco procesos que no hacen más que esperar.
+Al principio no molesta. Pero cuando tienes tres, cuatro, cinco proyectos, empiezas a preguntarte si tiene sentido tener cinco procesos que no hacen más que esperar.
 
 Sobre todo cuando el NAS no es un servidor de producción con recursos infinitos. Es un disco duro con suerte, corriendo Docker, y cada megabyte cuenta.
 
@@ -52,7 +50,7 @@ Cada proyecto solo necesita un pequeño archivo YAML que diga:
 - En qué branch hay que fijarse
 - Cómo se llama la imagen
 
-Y una GitHub Action genérica, idéntica en todos los repos, que se conecta por Tailscale y dice: "ejecutá deploy para proyecto X".
+Y una GitHub Action genérica, idéntica en todos los repos, que se conecta por Tailscale y dice: "ejecuta deploy para proyecto X".
 
 ## Lo que falta resolver
 
@@ -73,6 +71,6 @@ Una vez que el mecanismo de despliegue esté aceitado, la idea es tener un pipel
 5. El NAS levanta el contenedor
 6. netwatch está disponible en la red local
 
-Todo automático, todo centralizado, cero procesos al pedo.
+Todo automático, todo centralizado, cero procesos innecesarios.
 
 O al menos, esa es la idea. Todavía quedan decisiones de implementación, y seguramente algunas iteraciones más hasta que el flujo sea tan natural como hacer `git push` y olvidarse.

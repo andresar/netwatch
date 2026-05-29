@@ -99,13 +99,13 @@ func TestMockScanner_CancelledContext(t *testing.T) {
 func TestScanConfig_Defaults(t *testing.T) {
 	// ScanConfig sensible defaults
 	cfg := DefaultScanConfig()
-	if cfg.PingConcurrency != 32 {
-		t.Errorf("cfg.PingConcurrency = %d, want 32", cfg.PingConcurrency)
+	if cfg.PingConcurrency != 64 {
+		t.Errorf("cfg.PingConcurrency = %d, want 64", cfg.PingConcurrency)
 	}
 	if cfg.ScanTimeout != 30*time.Second {
 		t.Errorf("cfg.ScanTimeout = %v, want 30s", cfg.ScanTimeout)
 	}
-	if cfg.DNSTimeout != 3*time.Second {
-		t.Errorf("cfg.DNSTimeout = %v, want 3s", cfg.DNSTimeout)
+	if cfg.DNSTimeout != 1*time.Second {
+		t.Errorf("cfg.DNSTimeout = %v, want 1s", cfg.DNSTimeout)
 	}
 }

@@ -59,6 +59,7 @@ func run(sigCh <-chan os.Signal) error {
 		&realPinger{},
 		&realARPReader{},
 		&realDNSResolver{},
+		&realMDNSResolver{},
 		&realOUILookup{},
 		scanner.ScanConfig{
 			Subnet:          cfg.Subnet,
@@ -115,6 +116,12 @@ type realDNSResolver struct{}
 
 func (r *realDNSResolver) Resolve(ctx context.Context, ips []string, timeout time.Duration) (map[string]string, error) {
 	return scanner.ReverseLookupBatch(ctx, ips, timeout, 10)
+}
+
+type realMDNSResolver struct{}
+
+func (r *realMDNSResolver) ResolveMDNS(ctx context.Context, ips []string, timeout time.Duration) (map[string]string, error) {
+	return scanner.ResolveMDNSBatch(ctx, ips, timeout)
 }
 
 type realOUILookup struct{}

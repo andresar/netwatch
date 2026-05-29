@@ -41,8 +41,12 @@ func ParseARPTable(r io.Reader) (map[string]string, error) {
 		ip := fields[0]
 		mac := fields[3]
 
-		// Skip incomplete entries
+		// Skip incomplete or zero entries
 		if mac == "" || strings.Count(mac, ":") < 5 {
+			continue
+		}
+		// Skip uninitialized MACs (00:00:00:00:00:00)
+		if mac == "00:00:00:00:00:00" {
 			continue
 		}
 

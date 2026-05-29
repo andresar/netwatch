@@ -8,7 +8,7 @@ import (
 
 func TestLoad_Defaults(t *testing.T) {
 	// CM-2: Default port 8080
-	// CM-3: Default PING_CONCURRENCY=32, SCAN_TIMEOUT=30s, DNS_TIMEOUT=3s
+	// CM-3: Default PING_CONCURRENCY=64, SCAN_TIMEOUT=30s, DNS_TIMEOUT=1s
 	os.Clearenv()
 	t.Setenv("NETWATCH_SUBNET", "192.168.1.0/24")
 
@@ -23,14 +23,14 @@ func TestLoad_Defaults(t *testing.T) {
 	if cfg.Port != 8080 {
 		t.Errorf("cfg.Port = %d, want %d", cfg.Port, 8080)
 	}
-	if cfg.PingConcurrency != 32 {
-		t.Errorf("cfg.PingConcurrency = %d, want %d", cfg.PingConcurrency, 32)
+	if cfg.PingConcurrency != 64 {
+		t.Errorf("cfg.PingConcurrency = %d, want %d", cfg.PingConcurrency, 64)
 	}
 	if cfg.ScanTimeout != 30*time.Second {
 		t.Errorf("cfg.ScanTimeout = %v, want %v", cfg.ScanTimeout, 30*time.Second)
 	}
-	if cfg.DNSTimeout != 3*time.Second {
-		t.Errorf("cfg.DNSTimeout = %v, want %v", cfg.DNSTimeout, 3*time.Second)
+	if cfg.DNSTimeout != 1*time.Second {
+		t.Errorf("cfg.DNSTimeout = %v, want %v", cfg.DNSTimeout, 1*time.Second)
 	}
 }
 
