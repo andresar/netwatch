@@ -13,6 +13,7 @@ type Config struct {
 	Subnet          string
 	Port            int
 	PingConcurrency int
+	PingPrivileged  bool
 	ScanTimeout     time.Duration
 	DNSTimeout      time.Duration
 }

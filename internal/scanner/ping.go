@@ -17,6 +17,17 @@ const defaultPingCount = 1
 // pingTimeout is the timeout per individual ping probe.
 const pingTimeout = 2 * time.Second
 
+// privilegedPing controls whether ICMP uses raw sockets (privileged) or
+// unprivileged UDP-mode ICMP. Auto-detected at startup.
+var privilegedPing bool
+
+// SetPrivilegedPing configures the ICMP ping mode.
+// Set to true when CAP_NET_RAW is available (e.g., Docker with --cap-add).
+// Set to false for unprivileged ICMP (works on modern Linux kernels).
+func SetPrivilegedPing(privileged bool) {
+	privilegedPing = privileged
+}
+
 // IPsInCIDR returns all usable host IPs in a CIDR subnet.
 // Excludes the network address and broadcast address.
 func IPsInCIDR(cidr string) ([]string, error) {
@@ -77,7 +88,7 @@ func pingHost(ctx context.Context, target string) (bool, error) {
 		return false, fmt.Errorf("create pinger for %q: %w", target, err)
 	}
 
-	pinger.SetPrivileged(true)
+	pinger.SetPrivileged(privilegedPing)
 	pinger.Count = defaultPingCount
 	pinger.Timeout = pingTimeout
 

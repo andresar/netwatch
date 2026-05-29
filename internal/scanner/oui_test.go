@@ -19,20 +19,20 @@ func (m *mockOUILookup) Lookup(mac string) string {
 
 func TestLookupOUI_KnownPrefix(t *testing.T) {
 	// DI-2: Known MAC prefix returns vendor
-	vendor := LookupOUI("00:11:22:33:44:55")
+	vendor := LookupOUI("E8:0A:B9:33:44:55")
 	if vendor == "" {
 		t.Fatal("LookupOUI() returned empty string for known prefix")
 	}
-	if vendor != "Cisco Systems, Inc." {
-		t.Errorf("LookupOUI() = %q, want %q", vendor, "Cisco Systems, Inc.")
+	if vendor != "Cisco Systems" {
+		t.Errorf("LookupOUI() = %q, want %q", vendor, "Cisco Systems")
 	}
 }
 
 func TestLookupOUI_AnotherKnownPrefix(t *testing.T) {
 	// DI-2: Another known MAC prefix
-	vendor := LookupOUI("AC:DE:48:00:00:01")
-	if vendor != "Apple Inc." {
-		t.Errorf("LookupOUI() = %q, want %q", vendor, "Apple Inc.")
+	vendor := LookupOUI("F0:EE:7A:00:00:01")
+	if vendor != "Apple" {
+		t.Errorf("LookupOUI() = %q, want %q", vendor, "Apple")
 	}
 }
 
@@ -54,12 +54,12 @@ func TestLookupOUI_EmptyMAC(t *testing.T) {
 
 func TestLookupOUI_Lowercase(t *testing.T) {
 	// DI-2: Lowercase MAC should still match
-	vendor := LookupOUI("00:11:22:aa:bb:cc")
+	vendor := LookupOUI("e8:0a:b9:aa:bb:cc")
 	if vendor == "" {
 		t.Fatal("LookupOUI() returned empty for lowercase MAC")
 	}
-	if vendor != "Cisco Systems, Inc." {
-		t.Errorf("LookupOUI() = %q, want %q", vendor, "Cisco Systems, Inc.")
+	if vendor != "Cisco Systems" {
+		t.Errorf("LookupOUI() = %q, want %q", vendor, "Cisco Systems")
 	}
 }
 
